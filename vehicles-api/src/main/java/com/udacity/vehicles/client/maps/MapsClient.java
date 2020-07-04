@@ -36,7 +36,7 @@ public class MapsClient {
             Address address = client
                     .get()
                     .uri(uriBuilder -> uriBuilder
-                            .path("/maps/")
+                            .path("/maps")
                             .queryParam("lat", location.getLat())
                             .queryParam("lon", location.getLon())
                             .build()
@@ -47,7 +47,7 @@ public class MapsClient {
 
             return location;
         } catch (Exception e) {
-            log.warn("Map service is down");
+            log.warn("Map service is down.." + e.getLocalizedMessage());
             return location;
         }
     }

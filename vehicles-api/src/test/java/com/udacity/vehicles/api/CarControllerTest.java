@@ -67,8 +67,6 @@ public class CarControllerTest {
     @MockBean
     private MapsClient mapsClient;
 
-    @Value("${maps.endpoint}")
-    private String endpoint;
 
     /**
      * Creates pre-requisites for testing, such as an example car.

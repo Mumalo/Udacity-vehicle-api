@@ -12,6 +12,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import com.udacity.vehicles.domain.location.Location;
+import org.apache.juli.logging.LogFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -27,6 +28,7 @@ public class CarService {
     private final CarRepository repository;
     private final MapsClient mapsClient;
     private final PriceClient priceClient;
+    Logger logger = LoggerFactory.getLogger(CarService.class);
 
     public CarService(CarRepository repository, MapsClient mapsClient, PriceClient priceClient) {
         /**
@@ -103,11 +105,11 @@ public class CarService {
      */
     public Car save(Car car) {
         if (car.getId() != null) {
+            logger.info("updating existing car with id " + car.getId());
             return repository.findById(car.getId())
                     .map(carToBeUpdated -> {
                         carToBeUpdated.setDetails(car.getDetails());
                         carToBeUpdated.setLocation(car.getLocation());
-                        carToBeUpdated.setModifiedAt(LocalDateTime.now());
                         return repository.save(carToBeUpdated);
                     }).orElseThrow(CarNotFoundException::new);
         }
